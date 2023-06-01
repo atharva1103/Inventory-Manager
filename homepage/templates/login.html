@@ -1,0 +1,108 @@
+{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'bootstrap/bootstrap.min.css' %}"
+    />
+
+    <!-- Main CSS, then Sidebar CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/sidebar.css' %}"
+    />
+
+    <title>XIE - Login</title>
+
+    <style>
+      body {
+        overflow-x:hidden;
+        scroll-behavior: smooth;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+      }
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="align-middle"
+      style="color: #ffffff; font-style: bold; font-size: 3rem"
+    >
+      Inventory Analyzing System
+    </div>
+    <!-- <div class="align-middle" style="color: #494949;">An Inventory Management System</div> -->
+    <br />
+    
+    <div class="row d-flex justify-content-center items-center">
+      <div class="col-md-6">
+        {% if user.is_authenticated %}
+
+        <br /><br />
+        <h2 class="align-middle">
+          You are already logged in, {{ request.user.username }}!
+        </h2>
+        <div class="border-top pt-3 align-middle">
+          <br />
+          <a class="btn ghost-blue" href="{% url 'home' %}">Go back home</a>
+          <br /><br />
+          <a class="btn ghost-red" href="{% url 'logout' %}">Log Out</a>
+        </div>
+
+        {% else %}
+
+        <div style="background-color: #fff" class="content-section">
+          <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <div class="align-middle" style="color: #494949">
+                <legend class="my-4 display-3">Login</legend>
+              </div>
+              <div class="p-5">{{ form|crispy }}</div>
+            </fieldset>
+            <div class="form-group">
+              <div class="align-middle">
+                <button class="btn btn-outline-success btn-lg" type="submit">
+                  Log In
+                </button>
+                {# <button class="ml-2 btn btn-danger">Exit</button> #}
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+  </body>
+</html>
